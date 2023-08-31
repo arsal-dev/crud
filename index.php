@@ -29,7 +29,7 @@
         
         $sql = "INSERT INTO users (name, email, phone, password) VALUES ('$name', '$email', '$phone', '$password')";
         if($conn->query($sql)){
-          echo 'Data Inserted Successfully';
+          header("Refresh:0");
         }
         else {
           echo 'There was an error inserting the records';
@@ -71,6 +71,7 @@
         <table class="table table-hover mt-5">
           <thead>
             <tr>
+              <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
@@ -81,6 +82,7 @@
           <tbody>
             <?php while($row = $result->fetch_assoc()): ?>
             <tr>
+              <th><?php echo $row['id']; ?></th>
               <th><?php echo $row['name']; ?></th>
               <th><?php echo $row['email']; ?></th>
               <th><?php echo $row['phone']; ?></th>
