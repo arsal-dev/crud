@@ -85,7 +85,7 @@
               <th><?php echo $row['email']; ?></th>
               <th><?php echo $row['phone']; ?></th>
               <th><?php echo $row['password']; ?></th>
-              <th><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">DELETE</a></th>
+              <th><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">DELETE</a> <a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-warning">UPDATE</a></th>
             </tr>
             <?php endwhile; ?>
           </tbody>
