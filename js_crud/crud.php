@@ -49,13 +49,12 @@ class crud
 
         $params_string = implode(', ', $newArr);
 
-
         $sql = "UPDATE $table SET $params_string WHERE id = $id";
 
         if ($this->conn->query($sql)) {
-            return  ['status' => 200, 'result' => "Affected Rows: test"];
+            return ['status' => 200, 'result' => 'data updated successfuly'];
         } else {
-            return ['status' => 400, 'result' => "Error updating the records"];
+            return ['status' => 400, 'result' => 'error updating the records'];
         }
     }
 
@@ -64,9 +63,9 @@ class crud
         $sql = "DELETE FROM $table WHERE id = $id";
 
         if ($this->conn->query($sql)) {
-            return  ['status' => 200, 'result' => 'Data Deleted Successfully'];
+            return ['status' => 200, 'result' => 'Row Deleted Successsully'];
         } else {
-            return ['status' => 400, 'result' => 'Error: Deleting the Records'];;
+            return ['status' => 400, 'result' => 'Error Deleting the Records'];
         }
     }
 

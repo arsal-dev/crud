@@ -7,8 +7,8 @@ $name = $_GET['name'];
 $email = $_GET['email'];
 $password = $_GET['password'];
 
-$myAssoc = ['name' => $name, 'email' => $email, 'password' => $password];
+$assoc_arr = ['name' => $name, 'email' => $email, 'password' => $password];
 
-$result = $get->update('users', $myAssoc, $id);
+$result = $get->update('users', $assoc_arr, $id);
 
 echo json_encode($result);
