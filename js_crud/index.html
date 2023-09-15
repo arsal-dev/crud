@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
+
+          <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">password</label>
+                <input type="password" id="password" class="form-control">
+            </div>
+            <input type="submit" class="btn btn-primary mt-2">
+          </form>
+    </div>
+  
+  <!-- dlt Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">DELETE?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are You Sure?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="yes_dlt">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- update Modal -->
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="up_submit">
+            <div class="form-group">
+                <label for="up_name">Name</label>
+                <input type="text" id="up_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="up_email">Email</label>
+                <input type="email" id="up_email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="up_password">password</label>
+                <input type="text" id="up_password" class="form-control">
+            </div>
+            <input type="submit" value="Update" class="btn btn-primary mt-2" data-bs-dismiss="modal">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+    getData();
+    async function getData(){
+
+        let tbody = document.querySelector('tbody');
+        
+        let res = await fetch('apis/get.php');
+        res = await res.json();
+        
+        tbody.innerHTML = '';
+        for(let i = 0; i < res.length; i++){
+            
+            let tr = document.createElement('tr');
+
+            tr.innerHTML = `<th>${res[i].id}</th><td>${res[i].name}</td><td>${res[i].email}</td><td>${res[i].password}</td> <td><button class="btn btn-primary update_btn" data-bs-toggle="modal" data-bs-target="#updateModal" id="${res[i].id}" name="${res[i].name}" email="${res[i].email}" password="${res[i].password}">UPDATE</button> <button id="${res[i].id}" class="btn btn-danger delete_btn" data-bs-toggle="modal" data-bs-target="#deleteModal">DELETE</button></td>`;
+
+            tbody.append(tr);
+        }
+        dlt_func();
+        update_func();
+    }
+</script>
+
+<script src="./js/create.js"></script>
+<script src="./js/delete.js"></script>
+<script src="./js/update.js"></script>
+</html>
