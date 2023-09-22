@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 
@@ -36,5 +37,5 @@ Route::get('/mupdate', [StudentController::class, 'mupdate']);
 Route::get('/mdelete', [StudentController::class, 'mdelete']);
 
 
-
-Route::resource('user', UserController::class);
+Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
+Route::post('/posts/create', [PostController::class, 'store'])->name('post.store');
