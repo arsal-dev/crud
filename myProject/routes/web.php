@@ -37,5 +37,9 @@ Route::get('/mupdate', [StudentController::class, 'mupdate']);
 Route::get('/mdelete', [StudentController::class, 'mdelete']);
 
 
+Route::get('/posts', [PostController::class, 'read'])->name('post.read');
 Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
 Route::post('/posts/create', [PostController::class, 'store'])->name('post.store');
+Route::delete('/posts/{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
+Route::put('/posts/{id}/update', [PostController::class, 'update'])->name('post.update');
