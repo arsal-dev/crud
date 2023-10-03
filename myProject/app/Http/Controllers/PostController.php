@@ -41,18 +41,33 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post]);
     }
 
-    public function update(Request $request, $id)
+     public function update(Request $request, $id)
     {
-        $validated_data = $request->validate([
+        $post = Post::find($id);
+        $validated_fields = $request->validate([
             'title' => 'required',
             'excerpt' => 'required',
-            'body' => 'required'
+            'body' => 'required',
         ]);
 
-        $result = Post::where('id', $id)->update($validated_data);
+        if ($request->title == $post->title) {
+            $result = Post::where('id', $id)->update($validated_fields);
 
-        if ($result) {
-            return redirect('posts')->with('success', 'data updated successfully');
+            if ($result) {
+                return redirect('posts')->with('success', 'post deleted successfully');
+            }
+        } else {
+            $titleCheck = Post::where('title', $request->title)->get();
+
+            if (empty($titleCheck[0])) {
+                $result = Post::where('id', $id)->update($validated_fields);
+
+                if ($result) {
+                    return redirect('posts')->with('success', 'post deleted successfully');
+                }
+            } else {
+                return redirect()->back()->with('success', 'bhai jan title change karo');
+            }
         }
     }
 
