@@ -43,3 +43,8 @@ Route::post('/posts/create', [PostController::class, 'store'])->name('post.store
 Route::delete('/posts/{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
 Route::put('/posts/{id}/update', [PostController::class, 'update'])->name('post.update');
+
+Route::get('/posts/trashed', [PostController::class, 'trashed'])->name('post.trash');
+Route::get('/post/{id}/restore', [PostController::class, 'restore'])->name('post.restore');
+Route::delete('/post/{id}/forcedelete', [PostController::class, 'forcedelete'])->name('post.forcedelete');
+Route::delete('/post/allforcedelete', [PostController::class, 'allforcedelete'])->name('posts.alldeleteforever');

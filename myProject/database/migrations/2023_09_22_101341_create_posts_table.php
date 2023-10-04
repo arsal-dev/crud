@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->text('excerpt');
             $table->text('body');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

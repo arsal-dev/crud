@@ -41,33 +41,18 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post]);
     }
 
-     public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        $post = Post::find($id);
-        $validated_fields = $request->validate([
+        $validated_data = $request->validate([
             'title' => 'required',
             'excerpt' => 'required',
-            'body' => 'required',
+            'body' => 'required'
         ]);
 
-        if ($request->title == $post->title) {
-            $result = Post::where('id', $id)->update($validated_fields);
+        $result = Post::where('id', $id)->update($validated_data);
 
-            if ($result) {
-                return redirect('posts')->with('success', 'post deleted successfully');
-            }
-        } else {
-            $titleCheck = Post::where('title', $request->title)->get();
-
-            if (empty($titleCheck[0])) {
-                $result = Post::where('id', $id)->update($validated_fields);
-
-                if ($result) {
-                    return redirect('posts')->with('success', 'post deleted successfully');
-                }
-            } else {
-                return redirect()->back()->with('success', 'bhai jan title change karo');
-            }
+        if ($result) {
+            return redirect('posts')->with('success', 'data updated successfully');
         }
     }
 
@@ -77,6 +62,38 @@ class PostController extends Controller
 
         if ($result) {
             return redirect()->back()->with('success', 'data deleted successfully');
+        }
+    }
+
+    public function trashed()
+    {
+        return view('posts.trash', ['trashed_posts' => Post::onlyTrashed()->get()]);
+    }
+
+    public function restore($id)
+    {
+        $result = Post::onlyTrashed()->where('id', $id)->restore();
+
+        if ($result) {
+            return redirect('posts')->with('success', 'post restored successfully');
+        }
+    }
+
+    public function forcedelete($id)
+    {
+        $result = Post::onlyTrashed()->where('id', $id)->forceDelete();
+
+        if ($result) {
+            return redirect()->back()->with('success', 'post deleted forever successfully');
+        }
+    }
+
+    public function allforcedelete()
+    {
+        $result = Post::onlyTrashed()->forceDelete();
+
+        if ($result) {
+            return redirect('posts')->with('success', 'All Posts deleted forever successfully');
         }
     }
 }
