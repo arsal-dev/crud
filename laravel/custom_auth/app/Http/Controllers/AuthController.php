@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function home()
-    {
-        return view('home');
-    }
-
     public function login()
     {
         return view('auth.login');
@@ -45,11 +40,6 @@ class AuthController extends Controller
         } else {
             return redirect()->back()->with('login', "Credentials Don't Match");
         }
-    }
-
-    public function dashboard()
-    {
-        return view('auth.dashboard');
     }
 
     public function logout()

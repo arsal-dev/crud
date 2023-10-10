@@ -16,16 +16,13 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Custom Auth</a>
+            <a class="navbar-brand" href="{{ Route('home') }}">Blog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ Route('home') }}">Home</a>
-                    </li>
                     @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ Route('dashboard') }}">Dashboard</a>
@@ -34,14 +31,14 @@
                             <a class="nav-link" href="{{ Route('logout') }}">Logout</a>
                         </li>
                     @endauth
-                    @if (!Auth::user())
+                    @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ Route('login') }}">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ Route('register') }}">Register</a>
                         </li>
-                    @endif
+                    @endguest
                 </ul>
             </div>
         </div>
